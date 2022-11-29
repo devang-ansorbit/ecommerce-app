@@ -2,6 +2,8 @@ import { stringify } from 'querystring';
 import React, { useEffect } from 'react';
 import Rating from '../Modules/ProductList/Rating';
 import { Product, ModulValueProps } from '../Types/ProductResponce';
+import { useDispatch , useSelector } from 'react-redux';
+import{ addToCart }from '../Store/ProductSlice'
 
 const Containor = () => {
     const [arr, setArr] = React.useState<Product[]>([]);
@@ -13,6 +15,7 @@ const Containor = () => {
     const [moduleValue, setModuleValue] = React.useState<ModulValueProps>({
         moduleValue: false
     });
+    const dispatcher = useDispatch();
 
     useEffect(() => {
         fetch('https://dummyjson.com/products')
@@ -84,7 +87,7 @@ const Containor = () => {
                             </div>
                             <div className='flex my-5 justify-evenly'>
                                 <button className=' hover:border-blue-700 hover:border-2 text-white bg-blue-700 hover:bg-inherit hover:text-blue-700 hover:font-bold rounded-lg px-6 py-1.5 border-slate-900'>More Info</button>
-                                <button className=' hover:border-blue-700 hover:border-2 text-white bg-blue-700 hover:bg-inherit hover:text-blue-700 hover:font-bold rounded-lg px-6 py-2 border-slate-900'>Add to cart</button>
+                                <button onClick={() => dispatcher (addToCart(pro))} className=' hover:border-blue-700 hover:border-2 text-white bg-blue-700 hover:bg-inherit hover:text-blue-700 hover:font-bold rounded-lg px-6 py-2 border-slate-900'>Add to cart</button>
                             </div>
                         </div>
 

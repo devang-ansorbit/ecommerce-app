@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+import { store } from '../src/Store/Store'
+import { Provider } from 'react-redux'
 <link href='https://fonts.googleapis.com/css?family=Alata' rel='stylesheet'></link>
 
 const root = ReactDOM.createRoot(
@@ -11,7 +13,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
     <BrowserRouter>
-    <App/>
+      <Provider store={store}>
+          <App/>
+      </Provider>
     </BrowserRouter>
 );
 

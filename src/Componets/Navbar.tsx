@@ -1,6 +1,7 @@
 import '../module.css'
 import CartSvg from '../svg/CartSvg'
-import UserSvg from '../svg/UserSvg'
+import UserSvg from '../svg/UserSvg';
+import { Link } from 'react-router-dom';
 
 
 
@@ -20,7 +21,9 @@ const Navbar = () => {
                     </div>
                 <div className="flex w-20 h-14 border justify-evenly items-center">
                         <div>
-                            <CartSvg style={{width:'20px', height:'20px'}}/>
+                        <Link to= '/cart'>
+                                <CartSvg style={{width:'20px', height:'20px'}}/>
+                            </Link>
                         </div>
                         <div>
                         <UserSvg style={{ width: '20px', height: '20px' }} />
