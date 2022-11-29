@@ -12,3 +12,7 @@ export interface Product {
     images : string[],
     rating : number
 } 
+
+export interface ModulValueProps {
+    moduleValue : boolean
+}
