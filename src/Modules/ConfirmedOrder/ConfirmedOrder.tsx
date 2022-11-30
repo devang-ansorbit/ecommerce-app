@@ -1,8 +1,4 @@
-
-
 const ConfirmedOrder = () => {
-    return (
-        <div></div>
-    )
-}
-export default ConfirmedOrder
+  return <div></div>;
+};
+export default ConfirmedOrder;

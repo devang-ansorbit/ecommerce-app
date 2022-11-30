@@ -1,2 +1,2 @@
-export * from './CartSvg'
-export * from './UserSvg'
+export * from './CartSvg';
+export * from './UserSvg';

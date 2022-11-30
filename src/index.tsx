@@ -4,19 +4,22 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import { store } from '../src/Store/Store'
-import { Provider } from 'react-redux'
-<link href='https://fonts.googleapis.com/css?family=Alata' rel='stylesheet'></link>
+import { store } from '../src/Store/Store';
+import { Provider } from 'react-redux';
+<link
+  href='https://fonts.googleapis.com/css?family=Alata'
+  rel='stylesheet'
+></link>;
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-    <BrowserRouter>
-      <Provider store={store}>
-          <App/>
-      </Provider>
-    </BrowserRouter>
+  <BrowserRouter>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function
