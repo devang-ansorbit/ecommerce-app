@@ -1,9 +1,9 @@
-import { stringify } from 'querystring';
+// import { stringify } from 'querystring';
 import React, { useEffect } from 'react';
 import Rating from '../Modules/ProductList/Rating';
-import { Product, ModulValueProps } from '../Types/ProductResponce';
-import { useDispatch , useSelector } from 'react-redux';
-import{ addToCart }from '../Store/ProductSlice'
+import { Product } from '../Types/ProductResponce';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../Store/ProductSlice';
 
 const Containor = () => {
     const [arr, setArr] = React.useState<Product[]>([]);
@@ -12,53 +12,49 @@ const Containor = () => {
     const [fraGrances, setFraGrances] = React.useState<Product[]>([]);
     const [homeDecoration, setHomeDecoration] = React.useState<Product[]>([]);
     const [groceries, setGroceries] = React.useState<Product[]>([]);
-    const [moduleValue, setModuleValue] = React.useState<ModulValueProps>({
-        moduleValue: false
-    });
+
     const dispatcher = useDispatch();
 
     useEffect(() => {
-        fetch('https://dummyjson.com/products')
-            .then(res => res.json())
-            .then((data) => setArr(data.products))
-    }, [])
+        void fetch('https://dummyjson.com/products')
+            .then(async (res) => await res.json())
+            .then((data) => setArr(data.products));
+    }, []);
 
     useEffect(() => {
-        setSmartPhones(arr.filter((ele) => {
-            if (ele.category == 'smartphones') {
-                return ele;
-            }
-        }));
-
+        setSmartPhones(
+            // eslint-disable-next-line array-callback-return
+            arr.filter((ele) => {
+                if (ele.category === 'smartphones') {
+                    return ele;
+                }
+            }));
+        // eslint-disable-next-line array-callback-return
         setLapTop(arr.filter((ele) => {
-            if (ele.category == 'laptops') {
+            if (ele.category === 'laptops') {
                 return ele;
             }
         }));
 
         setFraGrances(arr.filter((ele) => {
-            if (ele.category == 'fragrances') {
+            if (ele.category === 'fragrances') {
                 return ele;
             }
         }));
-
         setHomeDecoration(arr.filter((ele) => {
-            if (ele.category == 'home-decoration' && ele.title != 'Handcraft Chinese style') {
+            if (ele.category === 'home-decoration' && ele.title != 'Handcraft Chinese style') {
                 return ele;
             }
         }));
 
         setGroceries(arr.filter((ele) => {
-            if (ele.category == 'groceries') {
+            if (ele.category === 'groceries') {
                 return ele;
             }
-        }));
+        }))
 
-
-
-    }, [arr])
+    }, [arr]);
     console.log(arr);
-
 
     return (
         <div className="mt-5">
@@ -87,7 +83,7 @@ const Containor = () => {
                             </div>
                             <div className='flex my-5 justify-evenly'>
                                 <button className=' hover:border-blue-700 hover:border-2 text-white bg-blue-700 hover:bg-inherit hover:text-blue-700 hover:font-bold rounded-lg px-6 py-1.5 border-slate-900'>More Info</button>
-                                <button onClick={() => dispatcher (addToCart(pro))} className=' hover:border-blue-700 hover:border-2 text-white bg-blue-700 hover:bg-inherit hover:text-blue-700 hover:font-bold rounded-lg px-6 py-2 border-slate-900'>Add to cart</button>
+                                <button onClick={() => dispatcher(addToCart(pro))} className=' hover:border-blue-700 hover:border-2 text-white bg-blue-700 hover:bg-inherit hover:text-blue-700 hover:font-bold rounded-lg px-6 py-2 border-slate-900'>Add to cart</button>
                             </div>
                         </div>
 
@@ -115,7 +111,7 @@ const Containor = () => {
                             </div>
                             <div className='flex my-5 justify-evenly'>
                                 <button className=' hover:border-blue-700 hover:border-2 text-white bg-blue-700 hover:bg-inherit hover:text-blue-700 hover:font-bold rounded-lg px-6 py-1.5 border-slate-900'>More Info</button>
-                                <button className=' hover:border-blue-700 hover:border-2 text-white bg-blue-700 hover:bg-inherit hover:text-blue-700 hover:font-bold rounded-lg px-6 py-2 border-slate-900'>Add to cart</button>
+                                <button onClick={() => dispatcher(addToCart(pro))} className=' hover:border-blue-700 hover:border-2 text-white bg-blue-700 hover:bg-inherit hover:text-blue-700 hover:font-bold rounded-lg px-6 py-2 border-slate-900'>Add to cart</button>
                             </div>
                         </div>
 
@@ -144,7 +140,7 @@ const Containor = () => {
 
                             <div className='flex my-5 justify-evenly'>
                                 <button className=' hover:border-blue-700 hover:border-2 text-white bg-blue-700 hover:bg-inherit hover:text-blue-700 hover:font-bold rounded-lg px-6 py-1.5 border-slate-900'>More Info</button>
-                                <button className=' hover:border-blue-700 hover:border-2 text-white bg-blue-700 hover:bg-inherit hover:text-blue-700 hover:font-bold rounded-lg px-6 py-2 border-slate-900'>Add to cart</button>
+                                <button onClick={() => dispatcher(addToCart(pro))} className=' hover:border-blue-700 hover:border-2 text-white bg-blue-700 hover:bg-inherit hover:text-blue-700 hover:font-bold rounded-lg px-6 py-2 border-slate-900'>Add to cart</button>
                             </div>
 
                         </div>
@@ -173,7 +169,7 @@ const Containor = () => {
 
                             <div className='flex my-5 justify-evenly'>
                                 <button className=' hover:border-blue-700 hover:border-2 text-white bg-blue-700 hover:bg-inherit hover:text-blue-700 hover:font-bold rounded-lg px-6 py-1.5 border-slate-900'>More Info</button>
-                                <button className=' hover:border-blue-700 hover:border-2 text-white bg-blue-700 hover:bg-inherit hover:text-blue-700 hover:font-bold rounded-lg px-6 py-2 border-slate-900'>Add to cart</button>
+                                <button onClick={() => dispatcher(addToCart(pro))} className=' hover:border-blue-700 hover:border-2 text-white bg-blue-700 hover:bg-inherit hover:text-blue-700 hover:font-bold rounded-lg px-6 py-2 border-slate-900'>Add to cart</button>
                             </div>
 
                         </div>
@@ -202,7 +198,7 @@ const Containor = () => {
 
                             <div className='flex my-5 justify-evenly'>
                                 <button className=' hover:border-blue-700 hover:border-2 text-white bg-blue-700 hover:bg-inherit hover:text-blue-700 hover:font-bold rounded-lg px-6 py-1.5 border-slate-900'>More Info</button>
-                                <button className=' hover:border-blue-700 hover:border-2 text-white bg-blue-700 hover:bg-inherit hover:text-blue-700 hover:font-bold rounded-lg px-6 py-2 border-slate-900'>Add to cart</button>
+                                <button onClick={() => dispatcher(addToCart(pro))} className=' hover:border-blue-700 hover:border-2 text-white bg-blue-700 hover:bg-inherit hover:text-blue-700 hover:font-bold rounded-lg px-6 py-2 border-slate-900'>Add to cart</button>
                             </div>
 
                         </div>

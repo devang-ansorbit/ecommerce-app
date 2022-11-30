@@ -2,40 +2,44 @@ import { createSlice } from '@reduxjs/toolkit';
 
 // import type { PayloadAction } from '@reduxjs/toolkit'
 // import { Action } from '@remix-run/router';
-import { Product } from '../Types/ProductResponce';
+import { Cart} from '../Types/ProductResponce';
 
 export interface ProductState {
- value: Product[],
- count ? : number
+ value: Cart[],
+ total ? : number 
 }
+
 
 const initialState: ProductState = {
  value: [],
- count : 0,
+ total : 0,
 };
 
 
 export const productSlice = createSlice({
-  name: 'Product',
-  initialState,
-  reducers: {
-  addToCart : (state ,action) =>{
-        
-            let productList : Product[];
-            if(state.value.length === 0) {
-                productList = [action.payload];
-            }else {
-                productList = [...state.value,action.payload]
-            }
-            return {
-               value : productList
-            }
-        
-    },
+    name: 'Product',
+    initialState,
+    reducers: {
+    addToCart : (state ,action) =>{
+            
+                const itemIndex = state.value.findIndex(
+                (item) => item.id === action.payload.id
+                );
+                if(itemIndex === -1) {
+                    const tempItem = {...action.payload, quantity : 1};
+                    state.value.push(tempItem);
+                    console.log('I am Value',state.value.length)
+                    state.total= state.total + action.payload.price
+                }else {
+                    state.value[itemIndex].quantity += 1;
+
+                state.total = action.payload.price + state.total ;
+                }
+        },
 
     removeFromCart : (state,action) =>{ 
         console.log(action.payload)
-        let productList : Product[];
+        let productList : Cart[];
         if(state.value.length === 0) {
             return 
         }else {
@@ -44,17 +48,33 @@ export const productSlice = createSlice({
             return {
                 value : productList
             }
-        }
-    },
+        },
 
-    // increment : (state) => {
-    //     return {...state,
-    //         count: (state.count?? 0) + 1}
-    // }
+    incrementQuanity : ( state , action ) => {
+         console.log("ok");
+         const itemIndex = state.value.findIndex(
+            (ele) => ele.id === action.payload
+            );
+        state.value[itemIndex].quantity += 1 ;
+        state.total= (state.total ?? 0) + state.value[itemIndex].price
+
+   },
+
+    decrementQuantiy : (state, action) => {
+         console.log("ok");
+         const itemIndex = state.value.findIndex(
+            (ele) => ele.id === action.payload
+        );   
+        state.value[itemIndex].quantity -= 1 ;
+        state.total= (state.total ?? 0) -  state.value[itemIndex].price
+
+   }
+}
+
   
 })
 
 // Action creators are generated for each case reducer function
-export const {addToCart,removeFromCart} = productSlice.actions
+export const {addToCart,removeFromCart,incrementQuanity, decrementQuantiy} = productSlice.actions
 
 export default productSlice.reducer
