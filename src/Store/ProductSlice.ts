@@ -6,12 +6,14 @@ import { Cart } from '../Types/ProductResponce';
 
 export interface ProductState {
   value: Cart[];
+  confirmedValue?: Cart[];
   total?: number;
 }
 
 const initialState: ProductState = {
   value: [],
   total: 0,
+  confirmedValue: [],
 };
 
 export const productSlice = createSlice({
@@ -19,6 +21,7 @@ export const productSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
+      console.log('ac', action.payload);
       const itemIndex = state.value.findIndex(
         (item) => item.id === action.payload.id
       );
@@ -29,9 +32,9 @@ export const productSlice = createSlice({
         state.total = state.total + action.payload.price;
       } else {
         state.value[itemIndex].quantity += 1;
-
         state.total = action.payload.price + state.total;
       }
+      console.log('value :', state.value);
     },
 
     removeFromCart: (state, action) => {
@@ -76,11 +79,25 @@ export const productSlice = createSlice({
         state.total = (state.total ?? 0) - state.value[itemIndex].price;
       }
     },
+
+    confirmedOrder: (state, action) => {
+      console.log('Ok', action.payload);
+      const temp: Cart[] = action.payload;
+      return {
+        value: [],
+        confirmedValue: temp,
+      };
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addToCart, removeFromCart, incrementQuanity, decrementQuantiy } =
-  productSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  incrementQuanity,
+  decrementQuantiy,
+  confirmedOrder,
+} = productSlice.actions;
 
 export default productSlice.reducer;

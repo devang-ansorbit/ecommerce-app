@@ -5,7 +5,7 @@ import ProductList from '../Modules/ProductList/ProductList';
 
 const AllRoutes = () => {
   return (
-    <div className=' w-11/12 border m-auto'>
+    <div className=' w-full m-auto'>
       <Routes>
         <Route path='/' element={<ProductList />}></Route>
         <Route path='/cart' element={<Cart />}></Route>
