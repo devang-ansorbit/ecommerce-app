@@ -76,12 +76,12 @@ const Containor = () => {
                 <Rating rating={pro.rating} />
               </div>
               <div className='flex my-5 justify-evenly'>
-                <button className=' hover:border-blue-700 hover:border-2 text-white bg-blue-700 hover:bg-inherit hover:text-blue-700 hover:font-bold rounded-lg px-6 py-1.5 border-slate-900'>
+                <button className=' hover:border-blue-700 hover:border border border-blue-700  text-white bg-blue-700 hover:bg-inherit hover:text-blue-700 hover:font-bold rounded-lg px-6 py-1.5'>
                   More Info
                 </button>
                 <button
                   onClick={() => dispatcher(addToCart(pro))}
-                  className=' hover:border-blue-700 hover:border-2 text-white bg-blue-700 hover:bg-inherit hover:text-blue-700 hover:font-bold rounded-lg px-6 py-2 border-slate-900'
+                  className=' hover:border-blue-700 hover:border border border-blue-700  text-white bg-blue-700 hover:bg-inherit hover:text-blue-700 hover:font-bold rounded-lg px-6 py-2'
                 >
                   Add to cart
                 </button>

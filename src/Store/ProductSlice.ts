@@ -48,6 +48,7 @@ export const productSlice = createSlice({
       state.value.forEach((pro) => {
         tempTotal = tempTotal + pro.price * pro.quantity;
       });
+      console.log(tempTotal);
       return {
         value: productList,
         total: tempTotal,

@@ -5,10 +5,17 @@ import {
   decrementQuantiy,
   removeFromCart,
 } from '../../Store/ProductSlice';
+import Total from '../../Componets/Total';
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import HomePageLogo from '../../svg/HomePageLogo';
+import ConfirmLogo from '../../svg/ConfirmLogo';
 
 const Cart = () => {
   const ProductList = useSelector((state: RootState) => state.Product.value);
-  const total = useSelector((state: RootState) => state.Product.total);
+  // const total = useSelector((state: RootState) => state.Product.total);
+  const [homeButtonValue, setHomeButtonValue] = useState(false);
+  const [confirmButtonValue, setConfirmButtonValue] = useState(false);
   let totalQuantities: number = 0;
 
   const dispatch = useDispatch();
@@ -29,15 +36,15 @@ const Cart = () => {
         {ProductList.map((ele) => (
           <div
             key={ele.id}
-            className='flex justify-evenly items-center my-1 border-b-[2px] h-56  border-slate-300'
+            className='flex justify-evenly items-center my-1 border-b-[2px] h-64  border-slate-300'
           >
-            <div className='border p-2'>
-              <div className='w-52 h-32 border'>
+            <div className=' p-2 flex justify-content items-center flex-col'>
+              <div className='w-60 h-32 border'>
                 <img className='w-full h-full' src={ele.thumbnail} alt='' />
               </div>
-              <div className='w-52 border text-l '>
+              <div className='w-60 mb-2 p-4 border flex justify-content items-center flex-col'>
                 <p className='text-xs'>{ele.brand}</p>
-                <h1 className='text-2xl'>{ele.title}</h1>
+                <h1 className='text-2xl w-56'>{ele.title}</h1>
               </div>
             </div>
 
@@ -91,9 +98,57 @@ const Cart = () => {
         <div className='w-8/12 mx-auto mt-3 h-14 flex justify-between'>
           <div className='text-4xl tracking-widest'>Total :</div>
           <h1 className='text-4xl font-bold tracking-wider h-14 text-right'>
-            ${total}.00
+            <Total />
           </h1>
         </div>
+      </div>
+      <div className='flex border w-3/5 h-16 mx-auto my-10 justify-evenly items-center'>
+        <button
+          onMouseEnter={() => setHomeButtonValue(true)}
+          onMouseLeave={() => setHomeButtonValue(false)}
+          className='border h-10 px-6 w-10 py-3 flex justify-center items-center rounded-lg text-xl'
+        >
+          {homeButtonValue ? (
+            <Link to='/'>
+              <HomePageLogo
+                style={{
+                  width: '50px',
+                  height: '40px',
+                  padding: '5px',
+                  border: '1px solid',
+                  borderRadius: '10px',
+                }}
+              />
+            </Link>
+          ) : (
+            <p className='h-10 px-10 py-3 w-10 flex justify-center items-center text-white rounded-lg bg-blue-700'>
+              Home
+            </p>
+          )}
+        </button>
+        <button
+          onMouseEnter={() => setConfirmButtonValue(true)}
+          onMouseLeave={() => setConfirmButtonValue(false)}
+          className='h-10 px-6 py-6flex justify-center items-center rounded-lg text-xl'
+        >
+          {confirmButtonValue ? (
+            <Link to='/about'>
+              <ConfirmLogo
+                style={{
+                  width: '40px',
+                  height: '40px',
+                  padding: '5px',
+                  border: '1px solid grey',
+                  borderRadius: '10px',
+                }}
+              />
+            </Link>
+          ) : (
+            <p className='h-10 px-14 py-3 w-10 flex justify-center items-center text-white rounded-lg bg-blue-700'>
+              Confirm
+            </p>
+          )}
+        </button>
       </div>
     </div>
   );
