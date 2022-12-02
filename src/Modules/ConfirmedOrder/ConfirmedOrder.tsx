@@ -9,6 +9,7 @@ const ConfirmedOrder = () => {
   const date = newDate.getDate();
   const month = newDate.getMonth() + 1;
   const year = newDate.getFullYear();
+
   return (
     <div className='leading-8 border-black m-3'>
       <Navbar />

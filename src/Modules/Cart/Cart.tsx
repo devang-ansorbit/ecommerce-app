@@ -7,10 +7,11 @@ import {
   confirmedOrder,
 } from '../../Store/ProductSlice';
 import Total from '../../Componets/Total';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import HomePageLogo from '../../svg/HomePageLogo';
 import ConfirmLogo from '../../svg/ConfirmLogo';
+import EmptyCart from './EmptyCart';
 
 const Cart = () => {
   const productList = useSelector((state: RootState) => state.Product.value);
@@ -25,16 +26,30 @@ const Cart = () => {
     totalQuantities = totalQuantities + pro.quantity;
     console.log('Total Qut:', totalQuantities);
   });
+  const navigate = useNavigate();
 
   const handleConfirm = () => {
+    navigate('/loading', { state: { route: '/confirmedOrder' } });
     dispatch(confirmedOrder(productList));
   };
+  const handleHome = () => {
+    navigate('/loading', { state: { route: '/' } });
+  };
+  const handleDecrement = (id: number, qnty: number) => {
+    if (qnty === 1) {
+      console.log('Hello I am 1');
+      alert('You wanna remove it from yuor cart');
+      dispatch(removeFromCart(id));
+    } else {
+      dispatch(decrementQuantiy(id));
+    }
+  };
   if (productList.length === 0) {
-    return null;
+    return <EmptyCart />;
   } else {
     return (
       <div className='border' id='body'>
-        <div className='border rounded-xl my-5 w-3/5 m-auto p-1 shadow-gray-800 hover:bg-slate-900 hover:text-white'>
+        <div className='border rounded-xl my-5 w-full bg-gradient-to-r from-zinc-500 m-auto p-1 shadow-gray-800 hover:bg-slate-900 hover:text-white'>
           <h1 className='text-4xl font-extrabold tracking-wide'>
             Your Cart ({totalQuantities} Products)
           </h1>
@@ -64,7 +79,9 @@ const Cart = () => {
                 <div className='flex w-36 justify-between items-center'>
                   <button
                     className='rounded-full border w-5 h-5 flex justify-center items-center font-bold text-xl text-center border-black  hover:bg-black hover:text-white'
-                    onClick={() => dispatch(decrementQuantiy(ele.id))}
+                    onClick={() => {
+                      handleDecrement(ele.id, ele.quantity);
+                    }}
                   >
                     -
                   </button>
@@ -116,7 +133,7 @@ const Cart = () => {
             className='border h-10 px-6 w-10 py-3 flex justify-center items-center rounded-lg text-xl'
           >
             {homeButtonValue ? (
-              <Link to='/'>
+              <button onClick={() => handleHome()}>
                 <HomePageLogo
                   style={{
                     width: '60px',
@@ -126,7 +143,7 @@ const Cart = () => {
                     borderRadius: '10px',
                   }}
                 />
-              </Link>
+              </button>
             ) : (
               <button className='h-10 px-14 py-3 w-10 flex justify-center items-center text-white rounded-lg bg-blue-700'>
                 Home
@@ -139,23 +156,18 @@ const Cart = () => {
             className='h-10 px-6 py-6flex justify-center items-center rounded-lg text-xl'
           >
             {confirmButtonValue ? (
-              <Link to='/confirmedOrder'>
-                <button onClick={() => handleConfirm()}>
-                  <ConfirmLogo
-                    style={{
-                      width: '60px',
-                      height: '40px',
-                      padding: '5px',
-                      border: '1px solid lightgrey',
-                      borderRadius: '10px',
-                    }}
-                  />
-                </button>
-              </Link>
+              <button onClick={() => handleConfirm()}>
+                <ConfirmLogo
+                  style={{
+                    width: '60px',
+                    height: '40px',
+                    padding: '5px',
+                    border: '1px solid lightgrey',
+                    borderRadius: '10px',
+                  }}
+                />
+              </button>
             ) : (
-              // <p className='h-10 px-14 py-3 w-10 flex justify-center items-center text-white rounded-lg bg-blue-700'>
-              //   Confirm
-              // </p>
               <button className='h-10 px-14 py-3 w-10 flex justify-center items-center text-white rounded-lg bg-blue-700'>
                 Confirm
               </button>

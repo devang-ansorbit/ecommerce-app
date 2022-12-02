@@ -4,7 +4,7 @@ import AllRoutes from './Componets/AllRoutes';
 
 function App() {
   return (
-    <div className='App' style={{ fontFamily: 'Aclonica' }}>
+    <div className='App w-full h-full' style={{ fontFamily: 'Aclonica' }}>
       <AllRoutes />
     </div>
   );
